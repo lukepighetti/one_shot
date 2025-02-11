@@ -18,9 +18,11 @@ import 'package:http/http.dart' as http;
 /// You can also provide images in png format encoded to base64
 ///
 /// ```dart
+/// final bird = await File("bird.png").readAsBytes().then(base64Encode);
+///
 /// oneShot(
 ///   apiKey: apiKey,
-///   base64Images: [birdPngBase64],
+///   base64Images: [bird],
 ///   prompt: 'kind of bird is this? json: {"species": string}',
 /// ).then(print); // {"species": "Baltimore Oriole"}
 /// ```

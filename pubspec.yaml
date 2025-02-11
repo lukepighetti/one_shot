@@ -1,5 +1,5 @@
 name: one_shot
-description: The simplest way to build LLM powered applications
+description: Build simple LLM applications fast. Works with any LLM provider that uses the Open AI chat completions protocol.
 version: 1.0.0
 repository: https://github.com/lukepighetti/one_shot
 
