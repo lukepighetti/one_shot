@@ -69,7 +69,7 @@ Future<Map<String, dynamic>> oneShot({
 /// Known endpoints that use the Open AI API protocol
 class Endpoints {
   // Open AI
-  static const openai = "https://api.openai/v1/chat/completions";
+  static const openai = "https://api.openai.com/v1/chat/completions";
 }
 
 /// Known endpoints that use the Open AI API protocol
