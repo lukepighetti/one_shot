@@ -46,3 +46,7 @@ respond in json:
 - Add endpoints and models that are compliant
 - Add token metadata logging
 - Add temperature controls
+
+## Credits
+
+The album that wrote this package: https://open.spotify.com/album/1tr3wtSgVZbk6xFLQpVDdA
