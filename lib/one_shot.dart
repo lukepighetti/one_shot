@@ -1,7 +1,7 @@
 library;
 
 import 'dart:convert';
-import 'dart:io';
+import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 
 /// Provide a prompt and optional images, get back JSON.
@@ -18,26 +18,29 @@ import 'package:http/http.dart' as http;
 /// You can also provide images in png format encoded to base64
 ///
 /// ```dart
-/// final bird = await File("bird.png").readAsBytes().then(base64Encode);
+/// final bird = await File("bird.png").readAsBytes();
 ///
 /// oneShot(
 ///   apiKey: apiKey,
-///   base64Images: [bird],
+///   images: [bird],
 ///   prompt: 'kind of bird is this? json: {"species": string}',
 /// ).then(print); // {"species": "Baltimore Oriole"}
 /// ```
 Future<Map<String, dynamic>> oneShot({
   required String apiKey,
   required String prompt,
+  List<Uint8List> images = const [],
   List<String> base64Images = const [],
   String model = Models.gpt4o,
   String url = Endpoints.openai,
 }) async {
+  base64Images = [...images.map(base64Encode), ...base64Images];
+
   final res = await http.post(
     Uri.parse(url),
     headers: {
-      HttpHeaders.contentTypeHeader: "application/json",
-      "Authorization": "Bearer $apiKey",
+      "content-type": "application/json",
+      "authorization": "Bearer $apiKey",
     },
     body: jsonEncode({
       "model": model,
@@ -72,10 +75,11 @@ class Endpoints {
   static const openai = "https://api.openai.com/v1/chat/completions";
 }
 
-/// Known endpoints that use the Open AI API protocol
+/// Common model keys
 class Models {
-  // GPT-4o
+  // Open AI GPT-4o
   static const gpt4o = "gpt-4o";
-  // GPT-4o Mini
+
+  // Open AI GPT-4o Mini
   static const gpt4oMini = "gpt-4o-mini";
 }
