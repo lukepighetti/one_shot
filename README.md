@@ -39,6 +39,7 @@ respond in json:
 - Support text and images in prompts
 - Return `Map<String, dynamic>`
 - Open AI endpoints and models will work
+- Keep things simple with [JSON Mode](https://platform.openai.com/docs/guides/structured-outputs#structured-outputs-vs-json-mode) until we have [data classes that can self-describe their JSON shape](https://github.com/schultek/dart_mappable/issues/269)
 
 
 ## Contributing
