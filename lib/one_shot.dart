@@ -33,6 +33,8 @@ Future<Map<String, dynamic>> oneShot({
   List<String> base64Images = const [],
   String model = Models.gpt4o,
   String url = Endpoints.openai,
+  double? temperature,
+  bool includeOriginalResponse = false,
 }) async {
   base64Images = [...images.map(base64Encode), ...base64Images];
 
@@ -45,6 +47,7 @@ Future<Map<String, dynamic>> oneShot({
     body: jsonEncode({
       "model": model,
       "response_format": {"type": "json_object"},
+      if (temperature != null) "temperature": temperature,
       "messages": [
         {
           "role": "user",
@@ -64,9 +67,12 @@ Future<Map<String, dynamic>> oneShot({
     }),
   );
   final body = utf8.decode(res.bodyBytes);
-  final json = jsonDecode(body);
+  final json = jsonDecode(body) as Map;
   final msg = (json["choices"] as List?)?.firstOrNull?["message"]["content"];
-  return jsonDecode(msg);
+  return {
+    ...jsonDecode(msg),
+    if (includeOriginalResponse) r'$response': json,
+  };
 }
 
 /// Known endpoints that use the Open AI API protocol
